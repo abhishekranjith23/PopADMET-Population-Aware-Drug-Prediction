@@ -952,7 +952,7 @@ training procedure, experiments, evaluation, and results.
 If the report is included in the repository, place it under:
 
 ```text
-docs/PopADMET_Report.pdf
+PopADMET_Report.pdf
 ```
 
 and link it below:
