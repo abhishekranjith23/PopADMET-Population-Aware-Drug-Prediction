@@ -147,7 +147,9 @@ The complete prediction pipeline is:
                   │ Response        │
                   └─────────────────┘
 
-```text
+
+
+
 ## Motivation
 
 Drug response and safety can vary across populations because genetic
