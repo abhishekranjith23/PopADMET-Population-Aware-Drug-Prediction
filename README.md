@@ -45,11 +45,8 @@ and biological activity.
 - **Jupyter Notebook** - Interactive development
 
 ### Bioinformatics Tools
-- **VEP (Variant Effect Predictor)** - For pharmacogenomic variant annotation (if applicable)
+- **VEP (Variant Effect Predictor)** - For pharmacogenomic variant annotation 
 
-### Utilities
-- **Matplotlib/Seaborn** - Data visualization
-- **Weights & Biases (W&B)** - Experiment tracking (optional)
 - [Project Workflow](#project-workflow)
 - [Results](#results)
 - [Evaluation](#evaluation)
