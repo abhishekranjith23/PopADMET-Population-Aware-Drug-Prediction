@@ -23,6 +23,33 @@ and biological activity.
   - [5. Prediction Tasks](#5-prediction-tasks)
 - [Model Architecture](#model-architecture)
 - [Technology Stack](#technology-stack)
+- ## Technology Stack
+
+### Core Frameworks & Libraries
+- **PyTorch** - Deep learning framework for model training and inference
+- **PyTorch Geometric (PyG)** - Graph neural network library for GIN implementation
+- **ESM-2** (Meta) - Protein language model for generating protein embeddings
+- **scikit-learn** - Machine learning utilities for evaluation metrics
+
+### Molecular Processing
+- **RDKit** - Cheminformatics toolkit for molecular structure handling and SMILES parsing
+- **NetworkX** - Graph manipulation and analysis
+
+### Data Handling
+- **Pandas** - Data manipulation and analysis
+- **NumPy** - Numerical computing
+
+### Development & Deployment
+- **Python 3.8+** - Programming language
+- **Conda/pip** - Package management
+- **Jupyter Notebook** - Interactive development
+
+### Bioinformatics Tools
+- **VEP (Variant Effect Predictor)** - For pharmacogenomic variant annotation (if applicable)
+
+### Utilities
+- **Matplotlib/Seaborn** - Data visualization
+- **Weights & Biases (W&B)** - Experiment tracking (optional)
 - [Project Workflow](#project-workflow)
 - [Results](#results)
 - [Evaluation](#evaluation)
