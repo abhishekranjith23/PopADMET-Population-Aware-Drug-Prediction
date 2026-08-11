@@ -84,7 +84,7 @@ variants.
 
 The complete prediction pipeline is:
 
-```text
+
 ┌─────────────────────┐
 │     Drug SMILES     │
 └──────────┬──────────┘
@@ -151,50 +151,10 @@ The complete prediction pipeline is:
 
 
 
------
- Motivation
-
-Drug response and safety can vary across populations because genetic
-differences can influence the activity of drug-metabolizing enzymes and
-transport-related pathways.
-
-For example, the project considers pharmacogenomic variants such as
-**CYP2D6*10**, a reduced-activity variant with higher prevalence in East Asian
-populations.
-
-Conventional ADMET models generally focus on the molecular characteristics
-of the drug:
 
 
-Drug → Prediction
 
 
----
-
-## Then `Problem Statement`
-
-
-## Problem Statement
-
-Conventional ADMET prediction approaches often treat drug properties as
-independent of patient or population-specific genetic variation.
-
-PopADMET formulates the problem as a multi-input prediction task.
-
-### Inputs
-
-- Drug molecule represented as a **SMILES string**
-- Population-specific pharmacogenomic variant information
-- Corresponding protein sequence representation
-
-### Outputs
-
-The model simultaneously predicts four ADMET-related endpoints:
-
-1. **AChE Binding Potency**
-2. **Moderate CYP-related PK Exposure Sensitivity**
-3. **High CYP-related PK Exposure Sensitivity**
-4. **East Asian Response Likelihood**
 
 The objective is to learn a relationship between molecular structure,
 protein-level information, and pharmacogenomic context for
