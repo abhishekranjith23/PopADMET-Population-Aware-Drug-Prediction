@@ -723,7 +723,7 @@ The interface is intended for research and demonstration purposes.
 
 ### Bioinformatics
 
-- **VEP (Variant Effect Predictor)** — Variant annotation where applicable
+- **VEP (Variant Effect Predictor)** —
 
 ### Visualization and Experiment Tracking
 
@@ -783,7 +783,7 @@ GIN Encoder              ESM-2 Encoder
 
 ## Project Structure
 
-A suggested repository structure is:
+The repository structure is:
 
 ```text
 PopADMET-Population-Aware-Drug-Prediction/
@@ -824,8 +824,6 @@ PopADMET-Population-Aware-Drug-Prediction/
 └── requirements.txt
 ```
 
-The actual structure should be updated to match the files committed to the
-repository.
 
 ---
 
