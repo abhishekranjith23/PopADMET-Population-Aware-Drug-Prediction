@@ -76,7 +76,7 @@ and exposure.
 PopADMET addresses this problem by incorporating both:
 
 - **Drug molecular structure**
-- **Patient-specific pharmacogenomic variant information**
+- **Population-specific pharmacogenomic variant information**
 
 The framework focuses on **Acetylcholinesterase (AChE)-targeting drugs**
 relevant to Alzheimer's disease and models five East Asian pharmacogenomic
@@ -85,57 +85,65 @@ variants.
 The complete prediction pipeline is:
 
 ```text
-                         ┌─────────────────────┐
-                         │     Drug SMILES     │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │  Molecular Graph    │
-                         │      RDKit          │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │ GIN Chemical        │
-                         │ Encoder             │
-                         └──────────┬──────────┘
-                                    │
-                              300-dim Vector
-                                    │
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │ Attention-Gated     │
-                         │ Fusion Module       │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │    Fusion MLP       │
-                         │ 780 → 512 → 256 →128│
-                         └──────────┬──────────┘
-                                    │
-                   ┌────────────────┼────────────────┐
-                   │                │                │
-                   ▼                ▼                ▼
-              AChE Binding     PK Exposure      East Asian
-                 Potency         Prediction        Response
-
-
-                         ┌─────────────────────┐
-                         │ East Asian Variant  │
-                         │ Protein Sequence    │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │      ESM-2          │
-                         │ Frozen Encoder      │
-                         └──────────┬──────────┘
-                                    │
-                              480-dim Vector
-                                    │
-                                    └──────────────►
-                                      Attention-Gated
-                                         Fusion
+┌─────────────────────┐
+│     Drug SMILES     │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Molecular Graph    │
+│       RDKit         │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ GIN Chemical        │
+│ Encoder             │
+└──────────┬──────────┘
+           │
+      300-dim Vector
+           │
+           │
+           │
+           │              ┌────────────────────────┐
+           │              │ East Asian Variant     │
+           │              │ Protein Sequence       │
+           │              └───────────┬────────────┘
+           │                          │
+           │                          ▼
+           │              ┌────────────────────────┐
+           │              │        ESM-2            │
+           │              │   Frozen Protein       │
+           │              │      Encoder           │
+           │              └───────────┬────────────┘
+           │                          │
+           │                     480-dim Vector
+           │                          │
+           └──────────────┬───────────┘
+                          │
+                          ▼
+               ┌─────────────────────┐
+               │ Attention-Gated     │
+               │ Fusion Module       │
+               └──────────┬──────────┘
+                          │
+                          ▼
+               ┌─────────────────────┐
+               │     Fusion MLP      │
+               │  780 → 512 → 256 →128│
+               └──────────┬──────────┘
+                          │
+              ┌───────────┼────────────┐
+              │           │            │
+              ▼           ▼            ▼
+       ┌────────────┐ ┌────────────┐ ┌────────────────┐
+       │ AChE       │ │ Moderate   │ │ High CYP       │
+       │ Binding    │ │ PK         │ │ PK Exposure    │
+       │ Potency    │ │ Exposure   │ │ Sensitivity    │
+       └────────────┘ └────────────┘ └────────────────┘
+                          │
+                          ▼
+                  ┌─────────────────┐
+                  │ East Asian      │
+                  │ Response        │
+                  └─────────────────┘
