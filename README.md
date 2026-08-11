@@ -148,9 +148,11 @@ The complete prediction pipeline is:
                   │ Response        │
                   └─────────────────┘
 
----
 
-## Motivation
+
+
+-----
+ Motivation
 
 Drug response and safety can vary across populations because genetic
 differences can influence the activity of drug-metabolizing enzymes and
@@ -163,7 +165,7 @@ populations.
 Conventional ADMET models generally focus on the molecular characteristics
 of the drug:
 
-```text
+
 Drug → Prediction
 
 
@@ -171,8 +173,6 @@ Drug → Prediction
 
 ## Then `Problem Statement`
 
-```markdown
----
 
 ## Problem Statement
 
