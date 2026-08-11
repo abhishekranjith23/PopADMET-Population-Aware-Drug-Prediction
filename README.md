@@ -22,8 +22,66 @@ prediction scores.
 
 - [Overview](#overview)
 - [Motivation](#motivation)
+- The project focuses on the fact that drug metabolism can vary across
+populations because of genetic differences in metabolic enzymes.
+
+For example, the report highlights CYP2D6*10, a reduced-activity variant
+that is considerably more frequent in East Asian populations than in European
+populations.
+
+This creates a challenge for genetics-blind ADMET models:
+
+Traditional ADMET
+
+Drug → Prediction
+
+Same drug → Same prediction
+
+Whereas PopADMET aims to model:
+
+Drug + Genetic Variant → Population-Specific Prediction
+
+The project therefore explores whether pharmacogenomic context can improve
+early-stage drug safety and response prediction.
 - [Problem Statement](#problem-statement)
+- Given:
+
+A drug molecule represented as a SMILES string
+A patient's East Asian genetic variant profile
+
+design a population-aware AI model that simultaneously predicts:
+
+AChE inhibitory activity
+Moderate CYP-related exposure sensitivity
+High CYP-related exposure sensitivity
+East Asian response likelihood
+
+while accounting for pharmacogenomic variants such as:
+
+CYP2D6*10
+CYP2D6*1
+CYP3A5*3
+CYP3A5*1
+BCHE*K
 - [Objectives](#objectives)
+- The main objectives of PopADMET are:
+
+Build a dual-encoder architecture that processes drug molecular graphs and
+variant protein sequences.
+Construct a pharmacogenomically grounded dataset containing
+20,248 drug-variant pairs.
+Use a GIN-based molecular encoder to learn chemical representations.
+Use ESM-2 to generate protein-level representations of genetic variants.
+Develop an attention-gated fusion mechanism to combine chemical and genetic
+information.
+Train the system using four ADMET prediction endpoints.
+Apply gradual unfreezing of the chemical encoder to improve model learning.
+Evaluate the model using molecule-level train, validation, and test splits.
+Validate the system using known Alzheimer's drugs including:
+Donepezil
+Rivastigmine
+Galantamine
+Deploy the trained model through an interactive Gradio interface.
 - [Scope](#scope)
 - [Key Features](#key-features)
 - [Population and Genetic Variants](#population-and-genetic-variants)
