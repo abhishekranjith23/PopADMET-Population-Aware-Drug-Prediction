@@ -22,7 +22,8 @@ prediction scores.
 
 - [Overview](#overview)
 - [Motivation](#motivation)
--The project focuses on the fact that drug metabolism can vary across
+
+The project focuses on the fact that drug metabolism can vary across
 populations because of genetic differences in metabolic enzymes.
 
 For example, the report highlights CYP2D6*10, a reduced-activity variant
@@ -43,6 +44,7 @@ Drug + Genetic Variant → Population-Specific Prediction
 
 The project therefore explores whether pharmacogenomic context can improve
 early-stage drug safety and response prediction.
+
 - [Problem Statement](#problem-statement)
 - Given:
 
