@@ -957,7 +957,7 @@ docs/PopADMET_Report.pdf
 
 and link it below:
 
-**[View the Complete Project Report](docs/PopADMET_Report.pdf)**
+**[View the Complete Project Report](PopADMET_Report.pdf)**
 
 ---
 
