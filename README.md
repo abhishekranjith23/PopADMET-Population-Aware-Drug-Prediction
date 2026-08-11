@@ -1,90 +1,108 @@
-# PopADMET: Population-Aware Drug Safety and Target Prediction
+# PopADMET: Context-Aware AI for Population-Specific ADMET Prediction
 
-> A population-aware AI framework for drug-response and safety prediction combining
-> molecular, protein, and pharmacogenomic representations.
+> A context-aware AI framework for population-specific ADMET prediction targeting
+> Acetylcholinesterase (AChE), combining drug molecular structure with
+> pharmacogenomic variant information.
 
+PopADMET is a population-aware multi-task AI framework designed to predict
+drug-response and safety characteristics while accounting for patient-specific
+genetic variation.
+
+Unlike conventional ADMET models that assign a single prediction to a drug,
+PopADMET jointly considers the **drug molecular structure** and an **East Asian
+pharmacogenomic variant profile** to produce population-specific predictions.
+
+The system combines a **GIN-based molecular encoder**, **ESM-2 protein language
+model**, and an **attention-gated fusion mechanism** to generate four ADMET
+prediction scores.
+
+---
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Motivation](#motivation)
+- [Problem Statement](#problem-statement)
 - [Objectives](#objectives)
+- [Scope](#scope)
 - [Key Features](#key-features)
+- [Population and Genetic Variants](#population-and-genetic-variants)
+- [Dataset](#dataset)
 - [System Architecture](#system-architecture)
 - [Methodology](#methodology)
-  - [1. Molecular Representation](#1-molecular-representation)
-  - [2. Protein Representation](#2-protein-representation)
-  - [3. Representation Integration](#3-representation-integration)
-  - [4. Pharmacogenomic Information](#4-pharmacogenomic-information)
-  - [5. Prediction Tasks](#5-prediction-tasks)
+  - [1. Data Collection](#1-data-collection)
+  - [2. Data Preprocessing](#2-data-preprocessing)
+  - [3. Molecular Graph Construction](#3-molecular-graph-construction)
+  - [4. Protein Variant Representation](#4-protein-variant-representation)
+  - [5. Dynamic PK Risk Scoring](#5-dynamic-pk-risk-scoring)
+  - [6. Attention-Gated Fusion](#6-attention-gated-fusion)
+  - [7. Multi-Task Prediction](#7-multi-task-prediction)
+  - [8. Gradual Encoder Unfreezing](#8-gradual-encoder-unfreezing)
 - [Model Architecture](#model-architecture)
+- [Prediction Tasks](#prediction-tasks)
+- [Training Configuration](#training-configuration)
+- [Evaluation Metrics](#evaluation-metrics)
+- [Results](#results)
+- [Ablation Study](#ablation-study)
+- [Clinical Case Studies](#clinical-case-studies)
+- [Per-Variant Analysis](#per-variant-analysis)
+- [Deployment](#deployment)
 - [Technology Stack](#technology-stack)
 - [Project Workflow](#project-workflow)
-- [Results](#results)
-- [Evaluation](#evaluation)
-- [My Contribution](#my-contribution)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Reproducibility](#reproducibility)
-- [Future Improvements](#future-improvements)
 - [Limitations](#limitations)
+- [Future Scope](#future-scope)
 - [Acknowledgements](#acknowledgements)
 - [Project Report](#project-report)
+- [References](#references)
 - [License](#license)
 
 ---
 
-## Overview
+# Overview
 
-Drug response and safety can vary across individuals and populations because of
-differences in molecular characteristics, biological targets, and genetic variation.
+Drug safety and response can vary between individuals because of differences in
+genetic background and metabolic enzyme activity.
 
-PopADMET explores a population-aware approach to drug-response and safety prediction
-by combining:
+Many conventional ADMET prediction systems primarily model properties of the
+drug molecule itself. Such systems may therefore produce the same prediction
+for different patients even when genetic variation can affect drug metabolism
+and exposure.
 
-- Molecular representations of drug compounds
-- Protein-level representations
-- Pharmacogenomic variant information
-- Graph-based deep learning
-- Attention-based representation fusion
+PopADMET addresses this problem by incorporating both:
 
-The framework uses a Graph Isomorphism Network (GIN) to learn molecular
-representations and ESM-2 to obtain protein-level representations. These
-representations are integrated through an attention-gated fusion mechanism for
-downstream prediction tasks.
+- **Drug molecular structure**
+- **Patient-specific pharmacogenomic variant information**
 
----
+The framework focuses on **Acetylcholinesterase (AChE)-targeting drugs** relevant
+to Alzheimer's disease and models five East Asian pharmacogenomic variants.
 
-## Motivation
+The system uses:
 
-Drug-response and safety prediction can benefit from information available at
-multiple biological levels.
+```text
+Drug SMILES
+     │
+     ▼
+GIN Chemical Encoder
+     │
+     │ 300-dimensional
+     ▼
+                         ┌─────────────────────┐
+                         │ Attention-Gated     │
+                         │ Fusion Module       │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                              Fusion MLP
+                                    │
+                                    ▼
+                         Shared 128-dim Vector
+                                    │
+                  ┌─────────────────┼─────────────────┐
+                  ▼                 ▼                 ▼
+             AChE Binding     PK Exposure      East Asian
+               Potency          Prediction        Response
 
-Traditional approaches may primarily focus on molecular or chemical properties,
-while drug response can also depend on protein targets and population-specific
-genetic variation.
-
-PopADMET explores the integration of these complementary information sources
-within a deep learning framework.
-
-The central idea is:
-
-Drug Molecular Structure
-          +
-Protein Representation
-          +
-Pharmacogenomic Information
-          ↓
-Representation Integration
-          ↓
-Attention-Gated Fusion
-          ↓
-Prediction
-          ↓
-Drug Safety / Biological Activity
-
-
-
-          +
 
