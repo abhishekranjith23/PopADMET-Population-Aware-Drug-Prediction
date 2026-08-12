@@ -980,5 +980,4 @@ according to the references cited in the final project report.
 
 This repository is intended for academic and research purposes.
 
-If a specific open-source license is selected for the repository, replace
-this section with the corresponding license information.
+
